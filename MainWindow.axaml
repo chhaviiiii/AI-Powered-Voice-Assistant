@@ -1,0 +1,185 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="VoiceAssistant.MainWindowAvalonia"
+        Title="AI Voice Assistant" 
+        Width="900" 
+        Height="600"
+        Background="#0F172A"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#6366F1"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="#8B5CF6"/>
+        </Style>
+    </Window.Styles>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
+        <Border Grid.Row="0" 
+                Background="#1E293B" 
+                BorderBrush="#6366F1" 
+                BorderThickness="0,0,0,2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                          Text="🎤 AI Voice Assistant" 
+                          FontSize="20" 
+                          FontWeight="Bold" 
+                          Foreground="#F1F5F9" 
+                          Margin="20,15"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10">
+                    <Button Content="─" 
+                           Width="40" 
+                           Height="30" 
+                           Click="MinimizeButton_Click" 
+                           Background="Transparent" 
+                           Foreground="#F1F5F9"
+                           Padding="0"/>
+                    <Button Content="✕" 
+                           Width="40" 
+                           Height="30" 
+                           Click="CloseButton_Click" 
+                           Background="Transparent" 
+                           Foreground="#F1F5F9"
+                           Padding="0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Status Display -->
+            <Border Grid.Row="0" 
+                   Background="#1E293B" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   Margin="0,0,0,20"
+                   BorderBrush="#6366F1"
+                   BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Status" 
+                              FontSize="14" 
+                              Foreground="#10B981" 
+                              Margin="0,0,0,10"/>
+                    <TextBlock x:Name="StatusText" 
+                              Text="Ready to listen..." 
+                              FontSize="18" 
+                              Foreground="#F1F5F9"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Conversation Area -->
+            <Border Grid.Row="1" 
+                   Background="#1E293B" 
+                   CornerRadius="15" 
+                   Padding="20" 
+                   Margin="0,0,0,20"
+                   BorderBrush="#6366F1"
+                   BorderThickness="1">
+                <ScrollViewer x:Name="ConversationScroll" 
+                             VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ConversationPanel" Orientation="Vertical">
+                        <TextBlock Text="💬 Conversation will appear here..." 
+                                  FontSize="14" 
+                                  Foreground="#F1F5F9" 
+                                  Opacity="0.6" 
+                                  HorizontalAlignment="Center" 
+                                  Margin="0,20"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Input Section -->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Text Input -->
+                <Grid Grid.Row="0" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="CommandInput" 
+                            Watermark="Type your command here and press Enter..."
+                            FontSize="16"
+                            Padding="15,10"
+                            Background="#1E293B"
+                            Foreground="#F1F5F9"
+                            BorderBrush="#6366F1"
+                            BorderThickness="2"
+                            CornerRadius="10"
+                            KeyDown="CommandInput_KeyDown"/>
+                    <Button Grid.Column="1" 
+                           Content="Send" 
+                           Margin="10,0,0,0"
+                           Padding="20,10"
+                           Click="SendButton_Click"
+                           Width="100"/>
+                </Grid>
+                
+                <!-- Voice Button -->
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                    <Ellipse x:Name="VoiceButton" 
+                            Width="120" 
+                            Height="120" 
+                            Fill="#6366F1"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Ellipse.Styles>
+                        <Style Selector="Ellipse">
+                            <Setter Property="Effect">
+                                <DropShadowEffect BlurRadius="20" 
+                                                 OffsetX="0"
+                                                 OffsetY="0"
+                                                 Color="#6366F1" 
+                                                 Opacity="0.5"/>
+                            </Setter>
+                        </Style>
+                    </Ellipse.Styles>
+                    </Ellipse>
+                    <TextBlock Text="🎤" 
+                              FontSize="50" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center" 
+                              Margin="0,-5,0,0"/>
+                    <Button Content="" 
+                           Width="120" 
+                           Height="120" 
+                           Background="Transparent" 
+                           Click="VoiceButton_Click" 
+                           Cursor="Hand"
+                           CornerRadius="60"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+

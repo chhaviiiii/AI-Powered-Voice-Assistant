@@ -1,0 +1,148 @@
+<Window x:Class="VoiceAssistant.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AI Voice Assistant" Height="600" Width="900"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="25" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Border Background="{StaticResource BackgroundBrush}" 
+            CornerRadius="20" 
+            BorderBrush="{StaticResource PrimaryBrush}" 
+            BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title Bar -->
+            <Grid Grid.Row="0" Background="{StaticResource SurfaceBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" 
+                          Text="🎤 AI Voice Assistant" 
+                          FontSize="20" 
+                          FontWeight="Bold" 
+                          Foreground="{StaticResource TextBrush}" 
+                          Margin="20,15"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="─" Width="40" Height="30" 
+                           Click="MinimizeButton_Click" 
+                           Background="Transparent" 
+                           Foreground="{StaticResource TextBrush}"/>
+                    <Button Content="✕" Width="40" Height="30" 
+                           Click="CloseButton_Click" 
+                           Background="Transparent" 
+                           Foreground="{StaticResource TextBrush}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- Main Content -->
+            <Grid Grid.Row="1" Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Status Display -->
+                <Border Grid.Row="0" 
+                       Background="{StaticResource SurfaceBrush}" 
+                       CornerRadius="15" 
+                       Padding="20" 
+                       Margin="0,0,0,20">
+                    <StackPanel>
+                        <TextBlock Text="Status" 
+                                  FontSize="14" 
+                                  Foreground="{StaticResource AccentBrush}" 
+                                  Margin="0,0,0,10"/>
+                        <TextBlock x:Name="StatusText" 
+                                  Text="Ready to listen..." 
+                                  FontSize="18" 
+                                  Foreground="{StaticResource TextBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Conversation Area -->
+                <Border Grid.Row="1" 
+                       Background="{StaticResource SurfaceBrush}" 
+                       CornerRadius="15" 
+                       Padding="20" 
+                       Margin="0,0,0,20">
+                    <ScrollViewer x:Name="ConversationScroll" 
+                                 VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="ConversationPanel">
+                            <TextBlock Text="💬 Conversation will appear here..." 
+                                      FontSize="14" 
+                                      Foreground="{StaticResource TextBrush}" 
+                                      Opacity="0.6" 
+                                      TextAlignment="Center" 
+                                      Margin="0,20"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+                <!-- Voice Button -->
+                <Grid Grid.Row="2">
+                    <Ellipse x:Name="VoiceButton" 
+                            Width="120" 
+                            Height="120" 
+                            HorizontalAlignment="Center">
+                        <Ellipse.Fill>
+                            <SolidColorBrush Color="{StaticResource PrimaryBrush}"/>
+                        </Ellipse.Fill>
+                        <Ellipse.Effect>
+                            <DropShadowEffect BlurRadius="20" 
+                                             ShadowDepth="0" 
+                                             Color="#6366F1" 
+                                             Opacity="0.5"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <TextBlock Text="🎤" 
+                              FontSize="50" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center" 
+                              Margin="0,-5,0,0"/>
+                    <Button Content="" 
+                           Width="120" 
+                           Height="120" 
+                           Background="Transparent" 
+                           Click="VoiceButton_Click" 
+                           Cursor="Hand"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
+
